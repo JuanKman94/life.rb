@@ -7,7 +7,7 @@ module Life
   # properly displayed and setups the board seed
   class Game
     # Default limit of game cycles
-    MAX_CYCLES = 100
+    MAX_CYCLES = 1_000
 
     def initialize(width, height)
       @board = Life::Board.new(width, height)
@@ -15,7 +15,7 @@ module Life
 
     # Run game
     #
-    # @param  [Integer] tick Number of seconds to sleep between cycles
+    # @param  [Float]   tick Number of seconds to sleep between cycles
     # @param  [Integer] max_cycles Max number of cycles to run
     # @return [Integer] Life cycles passed
     def run(tick = 1, max_cycles = MAX_CYCLES)

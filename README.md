@@ -15,6 +15,9 @@ $ bundle
 # run tests
 $ bundle exec rake test
 
+# run rubocop
+$ bundle exec rake rubocop
+
 # run game
 $ bundle exec rake run
 ```
@@ -40,6 +43,8 @@ implementation. There were others, but this seems just too elegant.
 * [x] add tests
 * [ ] add output stream as a parameter to [Game#run](lib/game/game.rb)
 (currently prints board during tests), see [fprintf(3p)]
+* [ ] add CLI parameters to change board dimensions, cycle duration (seconds),
+and max number of cycles
 
 [RuboCop]: https://rubocop.org/
 [eterry1388/ruby-game-of-life]: https://github.com/eterry1388/ruby-game-of-life
