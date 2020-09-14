@@ -20,6 +20,10 @@ module Life
     #
     # @return [Matrix] New matrix
 
+    # Matrix#each doesn't give the element directly as #each_with_index does.
+    #
+    # @see https://www.rubydoc.info/gems/matrix/0.3.0/Matrix#each-instance_method
+    # @see https://www.rubydoc.info/gems/matrix/0.3.0/Matrix#each_with_index-instance_method
     # rubocop:disable Lint/RedundantWithIndex
     def seed
       @matrix = @matrix.each_with_index do |cell|
