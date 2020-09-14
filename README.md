@@ -36,8 +36,11 @@ implementation. There were others, but this seems just too elegant.
 
 ## TODO
 
-* [ ] lint code using [RuboCop]
-* [ ] add tests
+* [x] lint code using [RuboCop]
+* [x] add tests
+* [ ] add output stream as a parameter to [Game#run](lib/game/game.rb)
+(currently prints board during tests), see [fprintf(3p)]
 
 [RuboCop]: https://rubocop.org/
 [eterry1388/ruby-game-of-life]: https://github.com/eterry1388/ruby-game-of-life
+[fprintf(3p)]: https://www.man7.org/linux/man-pages/man3/fprintf.3p.html
