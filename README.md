@@ -16,7 +16,7 @@ $ bundle
 $ bundle exec rake test
 
 # run game
-$ bundle exec run
+$ bundle exec rake run
 ```
 
 ## Rules
