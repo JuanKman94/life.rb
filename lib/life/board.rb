@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'matrix'
+require 'stringio'
 
 class Life::Board
   def initialize(w, h)
@@ -31,11 +32,25 @@ class Life::Board
     @matrix.select { |c| c.alive? }.count
   end
 
+  # Screen printable format
+  #
+  # Add padding between horizontal cells for a better look
+
   def display
-    system 'clear'
+    to_s.split("\n")
+      .map { |line| line.split('').join(' ') }
+      .join("\n")
+  end
+
+  def to_s
+    s = StringIO.new
+
     @matrix.to_a.each do |row|
-      puts row.map { |cell| cell }.join(' ')
+      row.each { |c| s.write(c.to_s) }
+      s.write("\n")
     end
+
+    s.string
   end
 
   def at(x, y)
