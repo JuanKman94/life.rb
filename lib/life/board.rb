@@ -1,59 +1,70 @@
 # frozen_string_literal: true
+
 require 'matrix'
 require 'stringio'
 
-class Life::Board
-  def initialize(w, h)
-    @matrix = Matrix.build(h, w)
-  end
-
-  # Seed board
+module Life
+  # Game of Life's Board.
   #
-  # Initialize each matrix cell as a [Life::Cell]
+  # This class handles the communication with the cells
   #
-  # @return [Matrix] New matrix
-
-  def seed
-    @matrix = @matrix.each_with_index do |cell, i|
-      x, y = *cell
-      Life::Cell.new(x, y, self)
-    end
-  end
-
-  def run_rules
-    @matrix.each(&:run_rules)
-  end
-
-  def apply_change
-    @matrix.each(&:apply_change)
-  end
-
-  def alive_cells
-    @matrix.select { |c| c.alive? }.count
-  end
-
-  # Screen printable format
-  #
-  # Add padding between horizontal cells for a better look
-
-  def display
-    to_s.split("\n")
-      .map { |line| line.split('').join(' ') }
-      .join("\n")
-  end
-
-  def to_s
-    s = StringIO.new
-
-    @matrix.to_a.each do |row|
-      row.each { |c| s.write(c.to_s) }
-      s.write("\n")
+  # **NOTE**: the caller **MUST** seed the instance before using it.
+  class Board
+    def initialize(width, height)
+      @matrix = Matrix.build(height, width)
     end
 
-    s.string
-  end
+    # Seed board
+    #
+    # Initialize each matrix cell as a [Life::Cell]
+    #
+    # @return [Matrix] New matrix
 
-  def at(x, y)
-    @matrix[x, y]
+    # rubocop:disable Lint/RedundantWithIndex
+    def seed
+      @matrix = @matrix.each_with_index do |cell|
+        x, y = *cell
+        Life::Cell.new(x, y, self)
+      end
+    end
+    # rubocop:enable Lint/RedundantWithIndex
+
+    # Calculate next generation of all the cells
+    def apply_rules
+      @matrix.each(&:apply_rules!)
+    end
+
+    def apply_change
+      @matrix.each(&:apply_change)
+    end
+
+    def alive_cells
+      @matrix.select(&:alive?).count
+    end
+
+    # Screen printable format
+    #
+    # Add padding between horizontal cells for a better look
+
+    def display
+      to_s.split("\n")
+          .map { |line| line.split('').join(' ') }
+          .join("\n")
+    end
+
+    def to_s
+      s = StringIO.new
+
+      @matrix.to_a.each do |row|
+        row.each { |c| s.write(c.to_s) }
+        s.write("\n")
+      end
+
+      s.string
+    end
+
+    def at(x_pos, y_pos)
+      @matrix[x_pos, y_pos]
+    end
   end
 end

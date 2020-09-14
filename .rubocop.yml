@@ -1,0 +1,3 @@
+---
+Style/RegexpLiteral:
+  EnforcedStyle: percent_r
